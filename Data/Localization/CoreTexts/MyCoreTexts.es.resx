@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CrashScreen_Detail" xml:space="preserve">
+    <value> 
+Para ayudarnos a resolver el problema, Por favor, añade una descripción de qué estabas haciendo cuando ocurrió (opcional):</value>
+  </data>
+  <data name="CrashScreen_Email" xml:space="preserve">
+    <value>Email (opcional)</value>
+  </data>
+  <data name="CrashScreen_EmailText" xml:space="preserve">
+    <value>Adicionalmente, puedes mandarnos tu Email en caso de que alguno de nuestros empleados del Soporte Técnico necesiten más información sobre este error. 
+ 
+ 
+ 
+ Al mandar esto, doy mi consentimiento para el procesamiento de mis datos personales (E-mail, {0} ID y Dirección IP) a Keen Software House s.r.o. Reino Unido y sus subsidiarios, de manera que estos datos sean procesados con el propósito de investigar el error y solicitar soporte con la intención de mejorar el rendimiento del juego. Garantizo este consentimiento de manera indefinida hasta mi revocación expresa. Confirmo que he sido informado de la provisión de estos datos voluntariamente, y que tengo el derecho a solicitar su eliminación. El registro no es transferible. Más información sobre el procesamiento de mis datos personales en el alcance requerido por las regulaciones legales, en particular por la Regulación (EU) 2016/679 del parlamento Europeo y del Consejo, que se puede encontrar como 25 de Mayo 2018 aquí.</value>
+  </data>
+  <data name="CrashScreen_Log" xml:space="preserve">
+    <value>Informe</value>
+  </data>
+  <data name="CrashScreen_MainText" xml:space="preserve">
+    <value>¡Space Engineers tuvo un problema y se cerró! 
+ Nos disculpamos por las inconveniencias. 
+ Por favor, haz clic en Enviar log si te gustaría ayudarnos a analizar y solucionar el problema. 
+ Para más información, mira el log debajo.</value>
+  </data>
+  <data name="CrashScreen_Title" xml:space="preserve">
+    <value>Fallo de Space Engineers</value>
+  </data>
+  <data name="CrashScreen_Yes" xml:space="preserve">
+    <value>Enviar Informe</value>
+  </data>
+  <data name="Error_AlreadyRunning" xml:space="preserve">
+    <value>Lo sentimos, pero {0} ya está en funcionamiento en tu PC. Solo se permite una instancia.</value>
+  </data>
+  <data name="Error_DirectInputNotInitialized" xml:space="preserve">
+    <value>Entrada de DirectX no inicializada</value>
+  </data>
+  <data name="Error_DirectInputNotInitialized_Description" xml:space="preserve">
+    <value>La entrada de DirectX no se inicializó. Por favor notifíquenos de este problema a través de support.keenswh.com.</value>
+  </data>
+  <data name="Error_DX11" xml:space="preserve">
+    <value>{1} - Ha ocurrido un error de aplicación. Para más información mira el informe de aplicación en {0} \n\n Este problema puede haber sido causado por tu tarjeta gráfica, ya que no cumple los requisitos mínimos. Se requiere una GPU DirectX 11. Por favor mira los requisitos mínimos en {2} \n\n ¿Quieres enviar tu configuración a los desarrolladores? \n\n ¡Gracias! \nKeen Software House</value>
+  </data>
+  <data name="Error_Error_Caption" xml:space="preserve">
+    <value>{0} - Error de Aplicación</value>
+  </data>
+  <data name="Error_Error_Message" xml:space="preserve">
+    <value>{0} - Ha habido un error de Aplicación. Para más información por favor, visita el informe de aplicación en {1} \n\nlf Si quieres ayudarnos a hacer {0} un juego mejor, puedes enviarnos el informe. Ningún dato personal o información sensible será enviada. \n\n ¿Quieres enviar el informe a los desarrolladores?\n\n ¡Gracias!\nKeen Software House</value>
+  </data>
+  <data name="Error_Failed" xml:space="preserve">
+    <value>Error al cargar el registro de {0}\n{1}\n\nSi quieres ayudarnos a mejorar el juego {0}, envíe el registro de la aplicación a {2}\n\n¡Gracias!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Drivers" xml:space="preserve">
+    <value>{1} - Ha ocurrido un error de aplicación. Para más información, mira el informe de aplicación en {0} \n\nlt Parece que tu tarjeta gráfica o los Drivers de tu tarjeta gráfica no cumplen los requisitos mínimos. Por favor, actualiza los Drivers y comprueba los requisitos mínimos en {2}\n\n¡Gracias!\nKeen Sofware House</value>
+  </data>
+  <data name="Error_GPU_Low" xml:space="preserve">
+    <value>{1} - Ha habido un error de aplicación. Para más información, mira el informe en {0} \n\nEste problema puede ser causado por tu tarjeta gráfica, ya que no cumple los requisitos mínimos. Por favor, comprueba los requisitos mínimos en {2}\n\n¡Gracias!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_NotDX11" xml:space="preserve">
+    <value>{1} - Ha habido un error. Para más información, por favor mira el infome de la aplicación en {0} \n\nEste problema puede ser causado por tu tarjeta gráfica, ya que no cumple los requisitos mínimos. Se requiere una GPU con DIrectX 11. Por favor, comprueba los requisistos mínimos en {2}\n\n¡Gracias!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_OldDriver" xml:space="preserve">
+    <value>{0} - ¡Advertencia!\n\nLos Drivers de tu tarjeta grafica '{1}' están anticuados.\n\nRecomendamos actualizar los Drivers. Los Drives antiguos pueden hacer que el juego se pare. ¿Te gustaría actualizar los Drivers?\n\nNo -no volver a mostrar el mensaje\nCancelar - Ocultar el mensaje\n\n\n¡Gracias!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_OutOfMemory" xml:space="preserve">
+    <value>{1} - Ha ocurrido un error de aplicación. Para más información mira el informe en {0} \n\nEste problema es causado por una memoria de vídeo limitada en tu PC. Por favor, asegurate de que tu tarjeta gráfica cumple los requisitos mínimos: al menos 512 MB de memoria de vídeo. Si tienes MODS activados o estás jugando en un servidor con MODS, puede que estos sean la causa. Algunos Mods tienen texturas de gran calidad, lo que consume gran parte de la memoria de vídeo. \n\nPor favor, mira los requisitos mínimos en {2}\n\n¡Gracias!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Unsupported" xml:space="preserve">
+    <value>{1} - ¡Advertencia!\n\nlt Parece que tu tarjeta gráfica no está soportada ya que no cumple los requisitos mínimos. Para más información, visista el informe de error de aplicción en {0} \nPor favor, visita los requisitos mínimos en {2} \n\n¡Gracias!\nKeen Software House</value>
+  </data>
+  <data name="Error_Message_Caption" xml:space="preserve">
+    <value>{0} Lanzador</value>
+  </data>
+  <data name="Error_OutOfMemmory" xml:space="preserve">
+    <value>{1} - Ha habido un error de aplicación. Para más información, mira el informe de aplicación en {0}\n\nEste problema es causado por una limitación de memoria en tu sistema. En caso de que estés usando un sistema operativo de 32 bits, recomendamos que lo actualices.\n\nEn caso de que estés usando un sistema operativo de 64 bits, cierra otras aplicaciones (en especial el navegador web) y vuelve a intentarlo o instala memoria adicional.\n\nComprueba los requisitos mínimos en {2}\n\n¡Gracias! \nKeen Software House</value>
+  </data>
+  <data name="Error_ThankYou" xml:space="preserve">
+    <value>¡Nos aseguraremos de que este percance sea arreglado tan pronto como sea posible!\n\n¡Gracias!\nKeen Software House</value>
+  </data>
+</root>

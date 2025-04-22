@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CrashScreen_Detail" xml:space="preserve">
+    <value> 
+A probléma megoldásához kérjük, adja meg annak leírását, hogy mit csinált, amikor ez történt (nem kötelező):</value>
+  </data>
+  <data name="CrashScreen_Email" xml:space="preserve">
+    <value>Email (opcionális)</value>
+  </data>
+  <data name="CrashScreen_EmailText" xml:space="preserve">
+    <value>Ezenkívül elküldheti nekünk e-mail címét arra az esetre, ha a támogató személyzetünk egy tagjának további információra lenne szüksége erről a hibáról.
+
+A napló elküldésével hozzájárulok személyes adataim (e-mail, {0} azonosító és IP-cím) feldolgozásához a Keen SWH LTD.-nek és leányvállalatainak, hogy ezeket az adatokat fellehessen dolgozni a hiba nyomon követése és a játék teljesítményének javítása érdekében történő visszajelzés kérése céljából. Határozatlan időre engedélyezem ezt a hozzájárulást, amíg kifejezetten vissza nem vonom. Megerősítem, hogy tájékoztattak arról, hogy ezeknek az adatoknak a rendelkezésre bocsátása önkéntes, és jogom van kérni azok törlését. A regisztráció nem ruházható át. 2018. május 25.-től. További információ található a személyes adataimnak a jogszabályok által előírt terjedelemben történő feldolgozásával kapcsolatban, az Európai Parlament és a Tanács 2016/679/EU rendeletében.</value>
+  </data>
+  <data name="CrashScreen_Log" xml:space="preserve">
+    <value>napló</value>
+  </data>
+  <data name="CrashScreen_MainText" xml:space="preserve">
+    <value>Space Engineers-ben volt egy probléma, és összeomlott! 
+Elnézést kérünk a kellemetlenségért.
+Kérjük, kattintson a Napló küldése gombra, ha segíteni szeretne a probléma elemzésében és megoldásában.
+További információért tekintse meg az alábbi naplót.</value>
+  </data>
+  <data name="CrashScreen_Title" xml:space="preserve">
+    <value>Space Engineers Összeomlott</value>
+  </data>
+  <data name="CrashScreen_Yes" xml:space="preserve">
+    <value>Napló Küldése</value>
+  </data>
+  <data name="Error_AlreadyRunning" xml:space="preserve">
+    <value>Sajnálom, de a(z) {0} már fut a számítógépen. Csak egy példány megengedett.</value>
+  </data>
+  <data name="Error_DX11" xml:space="preserve">
+    <value>{1} - alkalmazáshiba történt. További információt a {0}\n\n oldalon található alkalmazásnaplóban talál Ez a probléma a grafikus kártya miatt fordulhat elő, mivel az nem felel meg a minimális követelményeknek. DirectX 11 GPU szükséges. Tekintse meg a minimumkövetelményeket a {2}\n\n A konfigurációt be szeretné küldeni a fejlesztőknek?\n\nKöszönettel!\nKeen Software House</value>
+  </data>
+  <data name="Error_Error_Caption" xml:space="preserve">
+    <value>{0} - Alkalmazás Hiba</value>
+  </data>
+  <data name="Error_Error_Message" xml:space="preserve">
+    <value>{0} - alkalmazáshiba történt. További információkért lásd: alkalmazásnapló a (z) {1}\n\n ha szeretne segíteni nekünk a(z) {0} jobb játékának létrehozásában, küldje el nekünk a naplófájlt. Nem küldünk semmilyen személyes adatot vagy semmiféle érzékeny információt.\n\n Szeretné elküldeni ezt a naplót a fejlesztőknek?\n\nKöszönettel!\nKeen Software House</value>
+  </data>
+  <data name="Error_Failed" xml:space="preserve">
+    <value>{0} napló feltöltése sikertelen \n{1}\n\nHa segíteni szeretne nekünk a(z) {0} játék jobbá tételében, kérjük, küldje el az alkalmazásnaplót a {2}\n\n\Köszönjük!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Drivers" xml:space="preserve">
+    <value>{1} - alkalmazáshiba történt. További információért lásd az alkalmazásnaplót {0}\n\nIt Úgy tűnik, hogy a  videókártya (GPU) illesztőprogramja (Driver-e) nincs telepítve, vagy a videókártyája (GPU) nem felel meg a minimumkövetelményeknek. Kérjük, telepítse az illesztőprogramot, és tekintse meg a minimális követelményeket {2}\n\n Köszönjük!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Low" xml:space="preserve">
+    <value>{1} - alkalmazáshiba történt. További információkért lásd az alkalmazásnaplót, itt {0}\n\n Ez a probléma a  videókártya (GPU) miatt van, mert nem felel meg a minimumkövetelményeknek. Kérjük, olvassa el a minimális követelményeket, itt {2}\n\nKöszönjük!\n Keen Software House</value>
+  </data>
+  <data name="Error_GPU_NotDX11" xml:space="preserve">
+    <value>{1} - alkalmazáshiba történt. További információkért lásd az alkalmazásnaplót, itt {0}\n\nEz a probléma a  Videókártya miatt van, mert nem felel meg a minimumkövetelményeknek. A DirectX 11 GPU szükséges. Kérjük, olvassa el a minimális követelményeket, itt {2}\n\nKöszönjük!\n Keen Software House</value>
+  </data>
+  <data name="Error_GPU_OldDriver" xml:space="preserve">
+    <value>{0} - Figyelem!\n\nAz Ön Videókártyája '{1}' grafikus kártya illesztőprogramja idősebb, akkor szükséges.\n\nErősen ajánljuk a illesztőprogramok frissítését. A régi illesztőprogramok összeomlaszthatják a játékot. Nem szeretné frissíteni az illesztőprogramot?\n\n\n.Köszönjük!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_OutOfMemory" xml:space="preserve">
+    <value>{1} - alkalmazáshiba történt. További információkért lásd a {0}\n\nEzt a problémát a rendszer korlátozott vidememóriája okozza. Kérjük, ellenőrizze, hogy a grafikus kártya megfelel-e a minimális követelményeknek: Legalább 512 MB videofájl-memória. Ha engedélyezte a MOD-okat, vagy a szervereken játszott MOD-okkal, ennek az is lehet az oka. Egyes modok kiváló minőségű textúrákat tartalmaznak, amelyek nagy mennyiségű memóriát igényelnek.\n\nLásd a minimális követelményeket a {2}\n\nKöszönjük!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Unsupported" xml:space="preserve">
+    <value>{1} - Figyelem!\n\nÚgy tűnik, hogy a grafikus kártya jelenleg nem támogatott, mert nem felel meg a minimális követelményeknek. További információ: alkalmazásnapló a következő {0}\nKérjük, tekintse meg a minimumkövetelményeket a {2}\n\nKöszönettel!\nKeen Software House</value>
+  </data>
+  <data name="Error_Message_Caption" xml:space="preserve">
+    <value>{0} Indító</value>
+  </data>
+  <data name="Error_OutOfMemmory" xml:space="preserve">
+    <value>{1} - alkalmazáshiba történt. További információt a {0}\n\noldalon található alkalmazásnaplóban talál. Abban az esetben, ha még mindig 32 bites operációs rendszert használ, a frissítés erősen ajánlott.\n\nInAbban az esetben, ha 64 bites operációs rendszert használ, zárja be a többi alkalmazást (különösen az internetböngészőt), és próbálkozzon újra, vagy telepítsen további rendszermemóriát.\n\nKérjük, tekintse meg a minimumkövetelményeket a {2}\n\nKöszönjuk!\nKeen Software House</value>
+  </data>
+  <data name="Error_ThankYou" xml:space="preserve">
+    <value>Gondoskodunk arról, hogy a probléma a lehető leghamarabb megoldódjon!\n\nKöszönjük!\nKeen Software House</value>
+  </data>
+  <data name="Error_DirectInputNotInitialized" xml:space="preserve">
+    <value>A DirectX-bemenet nincs inicializálva</value>
+  </data>
+  <data name="Error_DirectInputNotInitialized_Description" xml:space="preserve">
+    <value>DirectX-bemenet nincs inicializálva. Kérem, jelentse ezt a support.keenswh.com címen.</value>
+  </data>
+</root>

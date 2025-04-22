@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CrashScreen_Detail" xml:space="preserve">
+    <value> 
+Prosíme, popište, co jste dělali když nastal problém. Pomůžete nám tím s řešením problému. (volitelné):</value>
+  </data>
+  <data name="CrashScreen_Email" xml:space="preserve">
+    <value>E-mail (volitelné)</value>
+  </data>
+  <data name="CrashScreen_EmailText" xml:space="preserve">
+    <value>Můžete nám poslat svůj email, který využije člen naší podpory za předpokladu, že bude od Vás potřebovat více informací ohledně problému. 
+
+Zasláním záznamu uděluji souhlas se zpracováním mých osobních dat (E-mail, Steam ID a adresa IP) společnosti Keen SWH. Data z České republiky zpracováváme za účelem zjišťování příčin pádů hry a kvůli případné zpětné vazbě za účelem zlepšení chodu hry. Tento souhlas uděluji na dobu neurčitou, dokud neposkytnu své výslovný odvolání. Potvrzuji, že jsem byl/a informován/a, že poskytování těchto údajů je zcela dobrovolné a že mám právo požadovat jejich vymazání. Registrace je nepřenosná. Více informací o zpracování mých osobních údajů v rozsahu požadovaném právními předpisy, zejména nařízením Evropského parlamentu a Rady (EU) 2016/679, naleznete od 25. května 2018 zde.</value>
+  </data>
+  <data name="CrashScreen_Log" xml:space="preserve">
+    <value>záznam</value>
+  </data>
+  <data name="CrashScreen_MainText" xml:space="preserve">
+    <value>Vyskytl se problém a hra Space Engineers spadla! 
+Omlouváme se Vám za nepříjemnosti. 
+Prosíme, klikněte na Poslat záznam, pokud nám chcete pomoci analyzovat problém a opravit ho.
+ Pro více informací zkontrolujte záznam níže.</value>
+  </data>
+  <data name="CrashScreen_Title" xml:space="preserve">
+    <value>Pád hry Space Engineers</value>
+  </data>
+  <data name="CrashScreen_Yes" xml:space="preserve">
+    <value>Poslat záznam</value>
+  </data>
+  <data name="Error_AlreadyRunning" xml:space="preserve">
+    <value>Omlouváme se, ale {0} již běží na Vašem počítači. Je dovolena pouze jedna instance hry.</value>
+  </data>
+  <data name="Error_DX11" xml:space="preserve">
+    <value>{1} - objevila se chyba v aplikaci. Pro více informací, prosíme zkontroluje záznam aplikace v {0}\n\nTento problém může být způsoben Vaší grafickou kartou, protože nesplňuje minimální požadavky. Je vyžadován adaptér s podporou DirectX 11. Zkontrolujte si minimální požadavky na {2}\n\nChcete zaslat svou konfiguraci vývojářům?\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_Error_Caption" xml:space="preserve">
+    <value>{0} - Chyba aplikace</value>
+  </data>
+  <data name="Error_Error_Message" xml:space="preserve">
+    <value>{0} - objevila se chyba v aplikaci. Pro více informací, prosíme, zkontroluje záznam aplikace v {1}\n\nChcete-li nám pomoci vylepšit {0}, můžete nám zaslat záznam. Nebudou poskytnuty žádné osobní údaje, ani citlivé informace.\n\nChcete zaslat svou konfiguraci vývojářům?\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_Failed" xml:space="preserve">
+    <value>{0} nahrávání záznamu selhalo\n{1}\n\nChcete-li nám pomoci vylepšit {0}, zašlete nám záznam hry na {2}\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Drivers" xml:space="preserve">
+    <value>{1} - objevila se chyba v aplikaci. Pro více informací, prosíme, zkontroluje záznam aplikace v {0}\n\nVypadá to, že nemáte nainstalovaný ovladač grafické karty, nebo Vaše grafická karta nesplňuje minimální požadavky. Prosíme, nainstalujte ovladače a ověřte si minimální požadavky na {2}\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Low" xml:space="preserve">
+    <value>{1} - objevila se chyba v aplikaci. Pro více informací, prosíme, zkontroluje záznam aplikace v {0}\n\nVypadá to, že problém způsobuje Vaše grafická karta, neboť nesplňuje minimální požadavky. Prosíme, ověřte si minimální požadavky na {2}\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_NotDX11" xml:space="preserve">
+    <value>{1} - objevila se chyba v aplikaci. Pro více informací, prosíme, zkontroluje záznam aplikace v {0}\n\nVypadá to, že problém způsobuje Vaše grafická karta, neboť nesplňuje minimální požadavky. Je vyžadována karta podporující DirectX 11. Prosíme, ověřte si minimální požadavky na {2}\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_OldDriver" xml:space="preserve">
+    <value>{0} - Varování!\n\nVáš '{1}' ovladač grafické karty je starší, než je požadováno.\n\nSilně Vám doporučujeme aktualizovat své ovladače. Starší ovladače mohou vést k pádům hry. Přejete si aktualizovat ovladač?\n\nNe - znovu nezobrazovat tuto zprávu\nZrušit - skrýt zprávu\n\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_OutOfMemory" xml:space="preserve">
+    <value>{1} - objevila se chyba v aplikaci. Pro více informací, prosíme, zkontroluje záznam aplikace v {0}\n\nTento problém je způsoben omezenou videopamětí Vašeho systému. Prosíme, ujistěte se, že Vaše grafická karta splňuje minimální požadavky: alespoň 512 MB videopaměti. Problém může vznikat i pokud máte povolené modifikace, nebo hrajete na serveru s modifikacemi. Některé modifikace obsahují textury s vysokou kvalitou, které zabírají velikou část videopaměti.\n\nProsíme, ověřte si minimální požadavky na {2}\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Unsupported" xml:space="preserve">
+    <value>{1} - Varování!\n\nVypadá to, že Vaše grafická karta není podporována, jelikož nesplňuje minimální požadavky. Pro více informací, prosíme, zkontroluje záznam aplikace v {0}\nProsíme, ověřte si minimální požadavky na {2}\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_Message_Caption" xml:space="preserve">
+    <value>{0} Spouštěč</value>
+  </data>
+  <data name="Error_OutOfMemmory" xml:space="preserve">
+    <value>{1} - objevila se chyba v aplikaci. Pro více informací, prosíme, zkontroluje záznam aplikace v {0}\n\nTento problém je způsoben omezenou pamětí Vašeho systému. Silně doporučujeme vylepšení operačního systému, pokud stále používáte 32-bit verzi.\n\nPoužíváte-li 64bit verzi operačního systému, pak zavřete ostatní aplikace (především internetový prohlížeč) a zkuste to znovu. Případně rozšiřte systémovou paměť.\n\nProsíme, ověřte si minimální požadavky na {2}\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+  <data name="Error_ThankYou" xml:space="preserve">
+    <value>Ujistíme se, že problém bude vyřešen hned, jakmile to bude možné!\n\nDěkujeme Vám!\nKeen Software House</value>
+  </data>
+</root>

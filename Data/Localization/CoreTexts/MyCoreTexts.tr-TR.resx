@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CrashScreen_Detail" xml:space="preserve">
+    <value> 
+Sorunu çözmeye yardım edebilmemiz için, çökme sırasında ne olduğunu yazın (isteğe bağlı):</value>
+  </data>
+  <data name="CrashScreen_Email" xml:space="preserve">
+    <value>E-posta (isteğe bağlı)</value>
+  </data>
+  <data name="CrashScreen_EmailText" xml:space="preserve">
+    <value>Ayrıca, destek ekibimizin bir üyesinin bu hata hakkında daha fazla bilgiye ihtiyaç duyması durumunda ulaşması için e-postanızı da yazabilirsiniz. 
+
+Günlüğü göndererek, Keen SWH LTD. Birleşik Krallık ve iştiraklerine, bu verilerin çökmeleri takip etmek ve oyun performansını iyileştirmek üzere geri bildirim istemek amacıyla işlenebilmesi için kişisel verilerimin işlenmesine (E-posta, Steam ID ve IP adresi) rıza gösteriyorum. Bu rızayı süresiz açıkça iptalini isteyene kadar belirsiz bir süre için verdim. Bu verilerin sağlanmasının gönüllü olduğunu ve bunların silinmesini isteme hakkına sahip olduğumu bildiğimi doğrularım. Kayıt devredilemez. Kişisel verilerimin yasal düzenlemeler, özellikle Avrupa Parlamentosu ve Konsey Tüzüğü (AB) 2016/679 kapsamında gerekli olan kapsamda işlenmesiyle ilgili daha fazla bilgi burada 25 Mayıs 2018 itibariyle bulunabilir.</value>
+  </data>
+  <data name="CrashScreen_Log" xml:space="preserve">
+    <value>günlük</value>
+  </data>
+  <data name="CrashScreen_MainText" xml:space="preserve">
+    <value>Space Engineers bir problemle karşılaştı ve çöktü! 
+Rahatsızlık için özür dileriz.
+Eğer bize analiz ve sorunu çözmede yardımcı olmak istiyorsanız lütfen günlük Gönder'e tıklayınız.
+Daha fazla bilgi için aşağıdaki günlüğü kontrol edin.</value>
+  </data>
+  <data name="CrashScreen_Title" xml:space="preserve">
+    <value>Space Engineer Çöktü</value>
+  </data>
+  <data name="CrashScreen_Yes" xml:space="preserve">
+    <value>Günlüğü Gönder</value>
+  </data>
+  <data name="Error_AlreadyRunning" xml:space="preserve">
+    <value>Üzgünüz, ancak {0} zaten bilgisayarınızda çalışıyor. Sadece bir örneğe izin verilmektedir.</value>
+  </data>
+  <data name="Error_DX11" xml:space="preserve">
+    <value>{1} - uygulama hatası oluştu. Daha fazla bilgi için lütfen {0} içindeki uygulama günlüğüne bakın \n\nBu sorun grafik kartınızdan kaynaklanıyor olabilir, çünkü minimum gereksinimleri karşılamıyor. DirectX 11 GPU gereklidir. Lütfen {2} adresindeki minimum gereksinimleri inceleyin.\n\nYapılandırmanızı geliştiricilere göndermek istiyor musunuz?\n\nTeşekkür ederiz!\nKeen Software House</value>
+  </data>
+  <data name="Error_Error_Caption" xml:space="preserve">
+    <value>{0} - Uygulama Hatası</value>
+  </data>
+  <data name="Error_Error_Message" xml:space="preserve">
+    <value>{0}- uygulama hatası oluştu. Daha fazla bilgi için lütfen {1} içindeki uygulama günlüğüne bakın\n\nEğer {0}daha iyi bir oyun yapmamıza yardımcı olmak istiyorsanız, günlük dosyasını bize gönderebilirsiniz. Hiçbir kişisel veri veya herhangi bir hassas bilgi gönderilmeyecektir.\n\nBu günlüğü geliştiricilere göndermek istiyor musunuz?\n\nTeşekkür ederiz!\nKeen Sofware House</value>
+  </data>
+  <data name="Error_Failed" xml:space="preserve">
+    <value>{0} günlük yüklemesi başarısız oldu\n{1}\n\nEğer daha iyi bir oyun {0} yapmamıza yardım etmek istiyorsanız, lütfen uygulama günlüğünü {2} adresine gönderin.\n\nTeşekkürler!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Drivers" xml:space="preserve">
+    <value>{1} - uygulama hatası oluştu. Daha fazla bilgi için lütfen uygulama günlüğüne bakın {0}.\n\nKullandığınız grafik kartı sürücünüz yüklü değil veya grafik kartınız minimum gereksinimleri karşılamıyor gibi görünüyor. Lütfen sürücüyü kurun ve minimum gereksinimleri görmek için {2}\n\nTeşekkür ederiz!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_Low" xml:space="preserve">
+    <value>{1} - kritik uygulama hatası oluştu. Daha fazla bilgi için lütfen uygulama günlüğüne bakın {0}\n\nBu sorun grafik kartınızdan kaynaklanabilir, çünkü minimum sistem gereksinimlerini karşılayamıyor gibi görünüyor. Lütfen minimum gereksinimleri görmek için {2}\n\n Teşekkür ederiz!\n\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_NotDX11" xml:space="preserve">
+    <value>{1} - kritik uygulama hatası oluştu. Daha fazla bilgi için lütfen uygulama günlüğüne bakın {0}\n\nBu sorun grafik kartınızdan kaynaklanabilir, çünkü minimum Directx 11 API destekli grafik kartı gereklidir. Lütfen minimum gereksinimleri görmek için {2}\n\nTeşekkür ederiz!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_OldDriver" xml:space="preserve">
+    <value>{0} - Uyarı! \n\n'{1}' grafik kartınızın sürücüsü çok eski.\n\nŞiddetle sürücüyü güncellemenizi öneriyoruz. Eski sürücüler oyunun çökmesine neden olabilir. Sürücüyü güncellemek ister misiniz?\n\nHayır - bu mesajı bir daha gösterme\nİptal - bu mesajı gizle\n\n\nTeşekkürler!\nKeen Software House</value>
+  </data>
+  <data name="Error_GPU_OutOfMemory" xml:space="preserve">
+    <value>{1} - uygulama hatası oluştu. Daha fazla bilgi için lütfen uygulama günlüğüne bakın {0}.\n\nBu sorun sisteminizde sınırlı video belleği nedeniyle oluşur. Lütfen Grafik kartınızın minimum gereksinimleri karşıladığından emin olun: en az 512 MB video belleği gereklidir. Oyuna MOD kurduysanız veya sunucuda MOD'larla oynuyorsanız, hatanın sebebi bu olabilir. Bazı modlar, büyük miktarda video belleği tüketen yüksek kaliteli dokular içerir. Lütfen bu linkteki minimum gereksinimlere bakın {2}.\n\nTeşekkür ederiz!\nKeen Yazılım Evi</value>
+  </data>
+  <data name="Error_GPU_Unsupported" xml:space="preserve">
+    <value>{1} - Uyarı!\n\nBilgisayarınızın grafik kartı desteklenmiyor gibi görünüyor, çünkü minimum gereksinimleri karşılayamıyor. Daha fazla bilgi için lütfen uygulama günlüğüne bakın{0}.\nMinimum gereksinimleri görmek için bu linke tıklayın{2}. \n\nTeşekkür ederiz!\nKeen Software House</value>
+  </data>
+  <data name="Error_Message_Caption" xml:space="preserve">
+    <value>{0} Başlatıcı</value>
+  </data>
+  <data name="Error_OutOfMemmory" xml:space="preserve">
+    <value>{1} - uygulama hatası oluştu. Daha fazla bilgi için lütfen uygulama günlüğüne bakın {0}.\n\nBu sorun sisteminizde sınırlı bellekten (RAM) kaynaklanır. Hala 32 bit işletim sistemi kullanıyorsanız, yükseltmeniz kesinlikle önerilir.\n\n64 bit işletim sistemi kullanıyorsanız, lütfen diğer uygulamaları (özellikle internet tarayıcısını) kapatın ve tekrar deneyin veya ek sistem belleği takın. \n\nMinimum sistem gereksinimlerine buradan bakabilirsiniz {2}.\n\nTeşekkür ederiz!\nKeen Yazılım Evi</value>
+  </data>
+  <data name="Error_ThankYou" xml:space="preserve">
+    <value>Sorunun en kısa zamanda giderileceğinden emin olabilirsiniz!\n\nTeşekkürler!\nKeen Software House</value>
+  </data>
+</root>
