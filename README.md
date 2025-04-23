@@ -1,11 +1,18 @@
-main.exe et main.py - version de base - basic version
+# Blueprint Viewer pour Space Engineers
 
-main_v1.1.py et main_v1.1.exe - version avec label du nom du ship - version with ship name label
+Un utilitaire moderne pour visualiser les composants et ressources nécessaires pour construire des blueprints dans Space Engineers.
 
-main_v1.3.py et main_v1.3.exe - add navigation window - ajout de la fenêtre de navigation
+## Fonctionnalités
 
-main_v1.5.py et main_v1.5.exe - language directly in the interface - langue directement dans l'interface
+- Interface graphique moderne avec PySide6
+- Visualisation des composants, blocs et lingots nécessaires pour chaque blueprint
+- Support des traductions (français/anglais)
+- Affichage des icônes des composants, blocs et lingots
+- Calcul du PCU total
+- Support des blueprints locaux et workshop
 
-main_v1.6.py et main_v1.6.exe - add pcu - ajout des pcu 
+## Utilisation
 
-update thanks Frifano (preview bp) main main_v1.7.py et main_v1.7.exe  (actual main.py or main.exe)
+1. Lancez l'application `BlueprintViewer.exe`
+2. Naviguez dans les onglets pour voir vos blueprints locaux ou ceux du workshop
+3. Cliquez sur un blueprint pour voir les détails
