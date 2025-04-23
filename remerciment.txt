@@ -1,3 +1,3 @@
 
 
-update thanks Frifano (preview bp) main main_v1.7.py et main_v1.7.exe (actual main.py or main.exe)
+update thanks Frifano (old version) main main_v1.7.py et main_v1.7.exe (ancienne version)
