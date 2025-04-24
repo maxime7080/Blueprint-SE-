@@ -12,9 +12,9 @@ from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
     QPushButton, QLabel, QFileDialog, QTabWidget, QListWidget, 
     QTreeWidget, QTreeWidgetItem, QFrame, QScrollArea, QSplitter,
-    QHeaderView
+    QHeaderView, QStackedLayout
 )
-from PySide6.QtGui import QPixmap, QIcon, QImage
+from PySide6.QtGui import QPixmap, QIcon, QImage, QPalette, QBrush, QPainter
 from PySide6.QtCore import Qt, QSize
 
 # Dictionnaire des noms d'affichage des composants
@@ -95,6 +95,24 @@ ingot_icons = {}
 block_icons = {}
 block_icons_paths = {}
 selected_lang = "en"  # langue par défaut
+
+# Traductions pour les éléments d'interface
+ui_translations = {
+    "en": {
+        "open_file_button": "Open blueprint file...",
+        "language_button": "Language",
+        "refresh_data_button": "Refresh data",
+        "select_blueprint": "Select a blueprint",
+        "no_preview": "No preview available"
+    },
+    "fr": {
+        "open_file_button": "Ouvrir un fichier blueprint...",
+        "language_button": "Langue",
+        "refresh_data_button": "Rafraîchir les données",
+        "select_blueprint": "Sélectionnez un blueprint",
+        "no_preview": "Pas d'aperçu disponible"
+    }
+}
 
 # Fonctions utilitaires
 def load_translations(lang):
@@ -647,19 +665,18 @@ class BlueprintViewer(QMainWindow):
     def __init__(self, language="en"):
         super().__init__()
         self.language = language
-        
-        # Récupérer les données nécessaires
-        global selected_lang, translations, displayname_map, component_to_ingot_ratios, block_icons_paths
+        global selected_lang
         selected_lang = language
+        
+        # Extraire les valeurs PCU si non déjà fait
         self.pcu_map = extract_pcu_values()
-        translations.update(load_translations(language))
-        component_to_ingot_ratios = extract_blueprint_ratios()
         
-        # Charger les icônes et extraire les chemins
-        extract_block_icons()
-        load_icons()
+        # Charger les traductions
+        global translations
+        translations = load_translations(language)
         
-        # Charger les noms d'affichage
+        # Initialiser le dictionnaire displayname_map pour les blocs
+        global displayname_map
         displayname_map = {}
         for dirpath, _, files in os.walk(DATA_DIR):
             for fname in files:
@@ -675,14 +692,146 @@ class BlueprintViewer(QMainWindow):
                     except:
                         continue
         
-        # Initialiser l'interface utilisateur
+        # Extraire les composants pour les blocs
+        self.block_components = extract_block_components()
+        
+        # Extraire les icônes des blocs
+        extract_block_icons()
+        
+        # Extraire les ratios composants-lingots
+        global component_to_ingot_ratios
+        if not component_to_ingot_ratios:
+            component_to_ingot_ratios = extract_blueprint_ratios()
+        
+        # Charger les icônes
+        load_icons()
+        
+        # Initialiser l'interface
         self.init_ui()
-    
+        
+        # Charger le fond d'écran s'il existe
+        #self.set_background_image()
+
     def init_ui(self):
         """Initialise l'interface utilisateur"""
         # Configuration de la fenêtre principale
         self.setWindowTitle("Space Engineers Blueprint Viewer - Modern UI")
         self.setMinimumSize(1200, 800)
+        
+        # Créer un widget central pour contenir tout le contenu
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        
+        # Déterminer le chemin de base pour les ressources (compatible avec PyInstaller)
+        if getattr(sys, 'frozen', False):
+            # Si l'application est exécutée comme un exécutable PyInstaller
+            base_path = sys._MEIPASS
+        else:
+            # Si l'application est exécutée comme un script Python normal
+            base_path = os.path.dirname(os.path.abspath(__file__))
+        
+        # Vérifier si le fond d'écran existe (d'abord en JPG, puis en PNG)
+        background_path = None
+        background_jpg_path = os.path.join(base_path, "Textures", "fond.jpg")
+        background_png_path = os.path.join(base_path, "Textures", "fond.png")
+        
+        # Vérifier les chemins alternatifs si nous sommes dans un .exe
+        if getattr(sys, 'frozen', False):
+            # Chercher aussi dans le répertoire de l'exécutable lui-même
+            exe_dir = os.path.dirname(sys.executable)
+            alt_jpg_path = os.path.join(exe_dir, "Textures", "fond.jpg")
+            alt_png_path = os.path.join(exe_dir, "Textures", "fond.png")
+            
+            # Vérifier ces chemins alternatifs
+            if os.path.exists(alt_jpg_path):
+                background_jpg_path = alt_jpg_path
+            if os.path.exists(alt_png_path):
+                background_png_path = alt_png_path
+        
+        # Vérifier JPG en priorité
+        if os.path.exists(background_jpg_path):
+            background_path = background_jpg_path
+            print(f"Fond d'écran JPG trouvé: {background_path}")
+        # Si pas de JPG, vérifier PNG
+        elif os.path.exists(background_png_path):
+            background_path = background_png_path
+            print(f"Fond d'écran PNG trouvé: {background_path}")
+        else:
+            print(f"Aucun fond d'écran trouvé (ni JPG ni PNG)")
+            print(f"Chemins recherchés: {background_jpg_path}, {background_png_path}")
+            if getattr(sys, 'frozen', False):
+                print(f"Chemins alternatifs: {alt_jpg_path}, {alt_png_path}")
+        
+        # Si un fond d'écran a été trouvé (peu importe le format)
+        if background_path:
+            # Créer une approche personnalisée pour ajuster l'image de fond
+            # comme le mode "remplissage" de Windows
+            try:
+                # Charger l'image avec PIL pour obtenir ses dimensions
+                img = Image.open(background_path)
+                img_width, img_height = img.size
+                img_ratio = img_width / img_height
+                
+                # Classe pour le widget central avec peinture personnalisée
+                class CentralWidget(QWidget):
+                    def __init__(self, parent=None):
+                        super().__init__(parent)
+                        self.background = QPixmap(background_path)
+                        self.img_ratio = img_ratio
+                    
+                    def paintEvent(self, event):
+                        # Dessiner l'arrière-plan de base
+                        painter = QPainter(self)
+                        painter.fillRect(self.rect(), Qt.black)
+                        
+                        # Calculer les dimensions pour remplir correctement
+                        widget_width = self.width()
+                        widget_height = self.height()
+                        widget_ratio = widget_width / widget_height
+                        
+                        if widget_ratio > self.img_ratio:
+                            # Widget plus large que l'image
+                            target_width = widget_width
+                            target_height = int(target_width / self.img_ratio)
+                            x = 0
+                            y = (widget_height - target_height) // 2
+                        else:
+                            # Widget plus étroit que l'image
+                            target_height = widget_height
+                            target_width = int(target_height * self.img_ratio)
+                            x = (widget_width - target_width) // 2
+                            y = 0
+                        
+                        # Dessiner l'image redimensionnée
+                        scaled_bg = self.background.scaled(target_width, target_height, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                        painter.drawPixmap(x, y, scaled_bg)
+                
+                # Remplacer le widget central par notre widget personnalisé
+                self.setCentralWidget(None)  # Supprimer le widget central actuel
+                custom_widget = CentralWidget()
+                self.setCentralWidget(custom_widget)
+                central_widget = custom_widget
+            except Exception as e:
+                print(f"Erreur lors de l'adaptation du fond d'écran: {e}")
+                # En cas d'erreur, revenir à l'approche CSS
+                css_path = background_path.replace("\\", "/")
+                central_widget.setStyleSheet(f"""
+                    #centralWidget {{
+                        background-image: url('{css_path}');
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-color: #1a1a1a;
+                    }}
+                """)
+                central_widget.setObjectName("centralWidget")
+        else:
+            print(f"Aucun fond d'écran trouvé")
+            central_widget.setStyleSheet("background-color: #1a1a1a;")
+        
+        # Créer le layout principal
+        self.main_layout = QVBoxLayout(central_widget)
+        self.main_layout.setContentsMargins(10, 10, 10, 10)
         
         # Ajouter l'icône de l'application
         logo_paths = [
@@ -705,98 +854,93 @@ class BlueprintViewer(QMainWindow):
         
         self.setStyleSheet("""
             QMainWindow {
-                background-color: #2e2e2e;
                 color: white;
             }
             QWidget {
-                background-color: #2e2e2e;
                 color: white;
             }
             QLabel {
                 color: white;
                 font-size: 12px;
+                background-color: transparent;
             }
             QPushButton {
-                background-color: #3a3a3a;
+                background-color: rgba(20, 20, 20, 0.85);
                 color: white;
                 border: 1px solid #555555;
                 padding: 5px;
                 border-radius: 3px;
             }
             QPushButton:hover {
-                background-color: #4a4a4a;
+                background-color: rgba(40, 40, 40, 0.9);
             }
             QPushButton:pressed {
-                background-color: #007acc;
+                background-color: rgba(0, 122, 204, 0.9);
             }
             QTabWidget::pane {
-                border: 1px solid #555555;
-                background-color: #2e2e2e;
+                border: 1px solid rgba(85, 85, 85, 0.7);
+                background-color: rgba(15, 15, 15, 0.8);
             }
             QTabBar::tab {
-                background-color: #3a3a3a;
+                background-color: rgba(20, 20, 20, 0.85);
                 color: white;
                 padding: 6px 12px;
-                border: 1px solid #555555;
+                border: 1px solid rgba(85, 85, 85, 0.7);
                 border-bottom: none;
                 border-top-left-radius: 4px;
                 border-top-right-radius: 4px;
             }
             QTabBar::tab:selected {
-                background-color: #007acc;
+                background-color: rgba(0, 122, 204, 0.85);
             }
             QTabBar::tab:hover:!selected {
-                background-color: #4a4a4a;
+                background-color: rgba(40, 40, 40, 0.85);
             }
             QListWidget, QTreeWidget {
-                background-color: #1e1e1e;
-                alternate-background-color: #2a2a2a;
+                background-color: rgba(10, 10, 10, 0.8);
+                alternate-background-color: rgba(15, 15, 15, 0.8);
                 color: white;
-                border: 1px solid #555555;
+                border: 1px solid rgba(40, 40, 40, 0.8);
                 border-radius: 4px;
             }
             QListWidget::item:selected, QTreeWidget::item:selected {
-                background-color: #007acc;
+                background-color: rgba(0, 122, 204, 0.85);
             }
             QListWidget::item:hover, QTreeWidget::item:hover {
-                background-color: #404040;
+                background-color: rgba(30, 30, 30, 0.8);
             }
             QTreeWidget::branch {
                 background-color: transparent;
             }
             QHeaderView::section {
-                background-color: #3a3a3a;
+                background-color: rgba(10, 10, 10, 0.85);
                 color: white;
                 padding: 4px;
-                border: 1px solid #555555;
+                border: 1px solid rgba(40, 40, 40, 0.7);
             }
             QScrollBar:vertical {
-                background-color: #2a2a2a;
+                background-color: rgba(10, 10, 10, 0.7);
                 width: 12px;
                 margin: 0px;
             }
             QScrollBar::handle:vertical {
-                background-color: #5a5a5a;
+                background-color: rgba(60, 60, 60, 0.8);
                 min-height: 20px;
                 border-radius: 6px;
             }
             QScrollBar::handle:vertical:hover {
-                background-color: #7a7a7a;
+                background-color: rgba(90, 90, 90, 0.9);
             }
             QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
                 height: 0px;
             }
             QSplitter::handle {
-                background-color: #5a5a5a;
+                background-color: rgba(60, 60, 60, 0.7);
                 height: 2px;
             }
         """)
         
         # Widget central et layout principal
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        main_layout = QVBoxLayout(central_widget)
-        
         # Barre supérieure avec le logo
         top_bar = QHBoxLayout()
         
@@ -813,17 +957,20 @@ class BlueprintViewer(QMainWindow):
         button_bar = QHBoxLayout()
         
         # Bouton pour ouvrir un fichier
-        browse_button = QPushButton("Ouvrir un fichier blueprint...")
+        browse_button = QPushButton(ui_translations[selected_lang]["open_file_button"])
+        browse_button.setObjectName("browse_button")
         browse_button.clicked.connect(self.browse_file)
         button_bar.addWidget(browse_button)
         
         # Bouton pour changer de langue
-        self.lang_button = QPushButton("Langue: " + self.language.upper())
+        self.lang_button = QPushButton(ui_translations[selected_lang]["language_button"] + ": " + self.language.upper())
+        self.lang_button.setObjectName("lang_button")
         self.lang_button.clicked.connect(self.switch_language)
         button_bar.addWidget(self.lang_button)
         
         # Bouton pour rafraîchir les données
-        refresh_button = QPushButton("Rafraîchir les données")
+        refresh_button = QPushButton(ui_translations[selected_lang]["refresh_data_button"])
+        refresh_button.setObjectName("refresh_button")
         refresh_button.setToolTip("Recharger toutes les données des fichiers SBC (après une mise à jour)")
         refresh_button.clicked.connect(self.refresh_data_ui)
         button_bar.addWidget(refresh_button)
@@ -832,7 +979,7 @@ class BlueprintViewer(QMainWindow):
         button_bar.addStretch(1)
         
         # Label pour le nom du blueprint
-        self.name_label = QLabel("Sélectionnez un blueprint")
+        self.name_label = QLabel(ui_translations[selected_lang]["select_blueprint"])
         self.name_label.setAlignment(Qt.AlignRight)
         button_bar.addWidget(self.name_label)
         
@@ -843,58 +990,127 @@ class BlueprintViewer(QMainWindow):
         
         # Ajouter les barres au layout principal
         top_bar.addLayout(button_bar)
-        main_layout.addLayout(top_bar)
+        self.main_layout.addLayout(top_bar)
         
         # Widget pour contenir les onglets et les listes
         content_widget = QWidget()
         content_layout = QVBoxLayout(content_widget)
+        content_layout.setContentsMargins(0, 0, 0, 0)
         
-        # Onglets pour les blueprints locaux et workshop
-        self.tabs = QTabWidget()
+        # Créer un QTabWidget pour les onglets de blueprints
+        tabs = QTabWidget()
         
-        # Onglet blueprints locaux
-        self.local_tab = QWidget()
-        local_layout = QVBoxLayout(self.local_tab)
-        self.local_listbox = self.create_listbox(os.path.join(os.getenv("APPDATA"), "SpaceEngineers", "Blueprints", "local"))
-        local_layout.addWidget(self.local_listbox)
+        # Créer des onglets pour les différents dossiers de blueprints
+        locaux_tab = QWidget()
+        locaux_layout = QHBoxLayout(locaux_tab)  # Changé en QHBoxLayout pour avoir les aperçus à côté
         
-        # Onglet blueprints workshop
-        self.workshop_tab = QWidget()
-        workshop_layout = QVBoxLayout(self.workshop_tab)
-        self.workshop_listbox = self.create_listbox(os.path.join(os.getenv("APPDATA"), "SpaceEngineers", "Blueprints", "workshop"))
-        workshop_layout.addWidget(self.workshop_listbox)
+        # Création d'un layout pour la liste et les labels
+        list_layout = QVBoxLayout()
+        list_layout.setContentsMargins(5, 5, 5, 5)
         
-        self.tabs.addTab(self.local_tab, "Blueprints Locaux")
-        self.tabs.addTab(self.workshop_tab, "Blueprints Workshop")
+        # Ajouter une liste de blueprints locaux
+        list_layout.addWidget(QLabel("Blueprints Locaux"))
+        blueprint_list = self.create_listbox(os.path.join(os.path.expanduser("~"), "AppData", "Roaming", "SpaceEngineers", "Blueprints"))
+        list_layout.addWidget(blueprint_list)
         
-        content_layout.addWidget(self.tabs)
+        # Ajouter le layout de liste au layout principal de l'onglet
+        locaux_layout.addLayout(list_layout, 3)  # Rapport 3:1 pour la largeur
         
-        # Zone d'aperçu d'image
-        self.image_label = QLabel()
-        self.image_label.setAlignment(Qt.AlignCenter)
-        self.image_label.setMinimumHeight(100)
-        self.image_label.setMaximumHeight(150)
-        content_layout.addWidget(self.image_label)
+        # Création d'un layout pour l'aperçu à droite
+        preview_layout = QVBoxLayout()
+        preview_layout.setContentsMargins(5, 5, 5, 5)
+        preview_layout.setAlignment(Qt.AlignCenter)
         
-        main_layout.addWidget(content_widget)
+        # Ajout du label d'aperçu dans ce layout
+        self.image_label_local = QLabel("Pas d'aperçu disponible")
+        self.image_label_local.setAlignment(Qt.AlignCenter)
+        self.image_label_local.setStyleSheet("background-color: rgba(0, 0, 0, 0.6); padding: 5px; border-radius: 3px;")
+        self.image_label_local.setMinimumHeight(200)
+        self.image_label_local.setMinimumWidth(300)
+        preview_layout.addWidget(self.image_label_local)
+        
+        # Ajouter des informations supplémentaires sous l'aperçu
+        self.bp_info_label = QLabel("")
+        self.bp_info_label.setAlignment(Qt.AlignCenter)
+        self.bp_info_label.setStyleSheet("background-color: rgba(0, 0, 0, 0.6); padding: 5px; border-radius: 3px;")
+        preview_layout.addWidget(self.bp_info_label)
+        
+        # Ajouter un espace élastique en bas
+        preview_layout.addStretch(1)
+        
+        # Ajouter le layout d'aperçu au layout principal de l'onglet
+        locaux_layout.addLayout(preview_layout, 1)
+        
+        # Créer un onglet pour les blueprints de workshop avec la même structure
+        workshop_tab = QWidget()
+        workshop_layout = QHBoxLayout(workshop_tab)
+        
+        # Layout pour la liste des blueprints workshop
+        workshop_list_layout = QVBoxLayout()
+        workshop_list_layout.setContentsMargins(5, 5, 5, 5)
+        
+        # Ajouter une liste de blueprints du workshop (si dossier existe)
+        workshop_list_layout.addWidget(QLabel("Blueprints Workshop"))
+        workshop_path = os.path.join(os.path.expanduser("~"), "AppData", "Roaming", "SpaceEngineers", "Blueprints", "Workshop")
+        workshop_list = self.create_listbox(workshop_path)
+        workshop_list_layout.addWidget(workshop_list)
+        
+        # Ajouter le layout de liste au layout principal
+        workshop_layout.addLayout(workshop_list_layout, 3)
+        
+        # Layout pour l'aperçu des blueprints workshop
+        workshop_preview_layout = QVBoxLayout()
+        workshop_preview_layout.setContentsMargins(5, 5, 5, 5)
+        workshop_preview_layout.setAlignment(Qt.AlignCenter)
+        
+        # Label d'aperçu pour l'onglet workshop
+        self.image_label_workshop = QLabel("Pas d'aperçu disponible")
+        self.image_label_workshop.setAlignment(Qt.AlignCenter)
+        self.image_label_workshop.setStyleSheet("background-color: rgba(0, 0, 0, 0.6); padding: 5px; border-radius: 3px;")
+        self.image_label_workshop.setMinimumHeight(200)
+        self.image_label_workshop.setMinimumWidth(300)
+        workshop_preview_layout.addWidget(self.image_label_workshop)
+        
+        # Informations supplémentaires pour l'onglet workshop
+        self.workshop_bp_info_label = QLabel("")
+        self.workshop_bp_info_label.setAlignment(Qt.AlignCenter)
+        self.workshop_bp_info_label.setStyleSheet("background-color: rgba(0, 0, 0, 0.6); padding: 5px; border-radius: 3px;")
+        workshop_preview_layout.addWidget(self.workshop_bp_info_label)
+        
+        # Ajouter un espace élastique en bas
+        workshop_preview_layout.addStretch(1)
+        
+        # Ajouter le layout d'aperçu au layout principal
+        workshop_layout.addLayout(workshop_preview_layout, 1)
+        
+        # Ajouter les onglets
+        tabs.addTab(locaux_tab, "Blueprints Locaux")
+        tabs.addTab(workshop_tab, "Blueprints Workshop")
+        
+        # Ajouter le tabwidget au layout
+        content_layout.addWidget(tabs)
+        
+        # Ajouter le widget de contenu au layout principal
+        self.main_layout.addWidget(content_widget)
         
         # Widget pour les TreeView (composants, lingots, blocs)
         trees_widget = QWidget()
+        trees_widget.setStyleSheet("QWidget { background-color: rgba(0, 0, 0, 0.6); border-radius: 5px; padding: 5px; }")
         trees_layout = QHBoxLayout(trees_widget)
+        trees_layout.setContentsMargins(10, 10, 10, 10)
+        trees_layout.setSpacing(10)
         
-        # TreeWidget pour les composants
-        self.comp_tree = self.create_tree("Components")
+        # Créer les TreeWidgets
+        self.comp_tree = self.create_tree("Composants")
         trees_layout.addWidget(self.comp_tree)
         
-        # TreeWidget pour les lingots
         self.ingot_tree = self.create_tree("Lingots")
         trees_layout.addWidget(self.ingot_tree)
         
-        # TreeWidget pour les blocs
         self.block_tree = self.create_tree("Blocs")
         trees_layout.addWidget(self.block_tree)
         
-        main_layout.addWidget(trees_widget, 1)  # Stretch
+        self.main_layout.addWidget(trees_widget, 1)  # Stretch
     
     def create_listbox(self, path):
         """Crée une QListWidget pour afficher les blueprints d'un dossier"""
@@ -951,17 +1167,27 @@ class BlueprintViewer(QMainWindow):
         if not file_path:
             return
         
+        # Déterminer quel onglet est actif pour mettre à jour le bon label d'aperçu
+        active_tab_index = self.findChild(QTabWidget).currentIndex()
+        # 0 = onglet local, 1 = onglet workshop
+        if active_tab_index == 0:
+            image_label = self.image_label_local
+            info_label = self.bp_info_label
+        else:
+            image_label = self.image_label_workshop
+            info_label = self.workshop_bp_info_label
+        
         # Charger l'image d'aperçu
         thumb_dir = os.path.dirname(file_path)
         thumb_path = os.path.join(thumb_dir, "thumb.png")
         if os.path.exists(thumb_path):
             pixmap = QPixmap(thumb_path)
-            # Redimensionner tout en conservant le ratio
-            pixmap = pixmap.scaled(144, 81, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            self.image_label.setPixmap(pixmap)
+            # Redimensionner tout en conservant le ratio mais plus grand qu'avant
+            pixmap = pixmap.scaled(300, 200, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            image_label.setPixmap(pixmap)
         else:
-            self.image_label.clear()
-            self.image_label.setText("Pas d'aperçu disponible")
+            image_label.clear()
+            image_label.setText(ui_translations[selected_lang]["no_preview"])
         
         # Charger les données du blueprint
         try:
@@ -973,8 +1199,12 @@ class BlueprintViewer(QMainWindow):
             if not owner or "DisplayName" in owner:
                 owner = "prefab"
             self.name_label.setText(f"{blueprint_name} - par {owner}")
+            
+            # Mettre à jour le label d'informations supplémentaires
+            info_label.setText(f"{blueprint_name}\nPar: {owner}")
         except Exception as e:
             self.name_label.setText("Nom non trouvé")
+            info_label.setText("Informations non disponibles")
         
         # Analyser le blueprint
         blocks = parse_blueprint(file_path)
@@ -989,13 +1219,23 @@ class BlueprintViewer(QMainWindow):
         """Ouvre une boîte de dialogue pour charger un fichier blueprint"""
         file_path, _ = QFileDialog.getOpenFileName(
             self,
-            "Ouvrir un Blueprint",
+            ui_translations[selected_lang]["open_file_button"],
             "",
             "SBC Files (*.sbc)"
         )
         
         if not file_path:
             return
+        
+        # Déterminer quel onglet est actif pour mettre à jour le bon label d'aperçu
+        active_tab_index = self.findChild(QTabWidget).currentIndex()
+        # 0 = onglet local, 1 = onglet workshop
+        if active_tab_index == 0:
+            image_label = self.image_label_local
+            info_label = self.bp_info_label
+        else:
+            image_label = self.image_label_workshop
+            info_label = self.workshop_bp_info_label
         
         # Charger les données du blueprint
         try:
@@ -1007,8 +1247,12 @@ class BlueprintViewer(QMainWindow):
             if not owner or "DisplayName" in owner:
                 owner = "prefab"
             self.name_label.setText(f"{blueprint_name} - par {owner}")
+            
+            # Mettre à jour le label d'informations supplémentaires
+            info_label.setText(f"{blueprint_name}\nPar: {owner}")
         except Exception as e:
             self.name_label.setText("Nom non trouvé")
+            info_label.setText("Informations non disponibles")
         
         # Charger l'image d'aperçu si disponible
         thumb_dir = os.path.dirname(file_path)
@@ -1016,11 +1260,11 @@ class BlueprintViewer(QMainWindow):
         if os.path.exists(thumb_path):
             pixmap = QPixmap(thumb_path)
             # Redimensionner tout en conservant le ratio
-            pixmap = pixmap.scaled(144, 81, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            self.image_label.setPixmap(pixmap)
+            pixmap = pixmap.scaled(300, 200, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            image_label.setPixmap(pixmap)
         else:
-            self.image_label.clear()
-            self.image_label.setText("Pas d'aperçu disponible")
+            image_label.clear()
+            image_label.setText(ui_translations[selected_lang]["no_preview"])
         
         # Analyser le blueprint
         blocks = parse_blueprint(file_path)
@@ -1096,9 +1340,25 @@ class BlueprintViewer(QMainWindow):
             selected_lang = "fr"
         else:
             selected_lang = "en"
+            
+        print(f"Changement de langue vers: {selected_lang}")
         
-        # Mettre à jour le texte du bouton
-        self.lang_button.setText("Langue: " + selected_lang.upper())
+        # Mettre à jour les textes des boutons
+        # 1. Bouton de navigation
+        browse_button = self.findChild(QPushButton, "browse_button")
+        if browse_button:
+            browse_button.setText(ui_translations[selected_lang]["open_file_button"])
+            print(f"Bouton de navigation mis à jour: {ui_translations[selected_lang]['open_file_button']}")
+        
+        # 2. Bouton de langue (this)
+        self.lang_button.setText(f"{ui_translations[selected_lang]['language_button']}: {selected_lang.upper()}")
+        print(f"Bouton de langue mis à jour: {ui_translations[selected_lang]['language_button']}: {selected_lang.upper()}")
+        
+        # 3. Bouton de rafraîchissement
+        refresh_button = self.findChild(QPushButton, "refresh_button")
+        if refresh_button:
+            refresh_button.setText(ui_translations[selected_lang]["refresh_data_button"])
+            print(f"Bouton de rafraîchissement mis à jour: {ui_translations[selected_lang]['refresh_data_button']}")
         
         # Recharger les traductions
         global translations
@@ -1109,6 +1369,25 @@ class BlueprintViewer(QMainWindow):
     
     def refresh_ui(self):
         """Rafraîchit l'interface après un changement de langue"""
+        # Mettre à jour les textes des boutons avec la nouvelle langue
+        browse_button = self.findChild(QPushButton, "browse_button")
+        if browse_button:
+            browse_button.setText(ui_translations[selected_lang]["open_file_button"])
+        
+        refresh_button = self.findChild(QPushButton, "refresh_button")
+        if refresh_button:
+            refresh_button.setText(ui_translations[selected_lang]["refresh_data_button"])
+        
+        # Le bouton de langue est déjà mis à jour dans switch_language()
+        
+        # Mettre à jour le texte du label de sélection si aucun blueprint n'est sélectionné
+        if self.name_label.text().startswith("Sélectionnez") or self.name_label.text().startswith("Select"):
+            self.name_label.setText(ui_translations[selected_lang]["select_blueprint"])
+            
+        # Mettre à jour le message d'absence d'aperçu si nécessaire
+        if hasattr(self, 'image_label_local') and (self.image_label_local.text() == ui_translations["fr"]["no_preview"] or self.image_label_local.text() == ui_translations["en"]["no_preview"]):
+            self.image_label_local.setText(ui_translations[selected_lang]["no_preview"])
+        
         # Récupérer les valeurs actuelles
         current_components = {}
         current_blocks = {}
@@ -1159,6 +1438,58 @@ class BlueprintViewer(QMainWindow):
         """Rafraîchit les données et l'interface"""
         refresh_data()
         self.refresh_ui()
+
+    # def set_background_image(self):
+    #     """Charge le fond d'écran depuis \Textures\fond.png s'il existe"""
+    #     background_path = r"\Textures\fond.png"
+        
+    #     # Si le chemin commence par un backslash, le considérer comme relatif au répertoire courant
+    #     if background_path.startswith("\\"):
+    #         # Obtenir le répertoire courant et ajouter le chemin relatif
+    #         current_dir = os.path.dirname(os.path.abspath(__file__))
+    #         absolute_path = os.path.join(current_dir, background_path.lstrip("\\"))
+    #     else:
+    #         absolute_path = background_path
+        
+    #     print(f"Chemin du fond d'écran: {absolute_path}")
+        
+    #     if os.path.exists(absolute_path):
+    #         try:
+    #             # Approche plus directe avec QMainWindow et styleSheet
+    #             # Cela applique le fond d'écran directement au widget central
+    #             central_widget = QWidget(self)
+    #             self.setCentralWidget(central_widget)
+    #             central_widget.setObjectName("centralWidget")
+                
+    #             # Convertir le chemin en format compatible avec CSS (utiliser des slashes avant)
+    #             css_path = absolute_path.replace("\\", "/")
+                
+    #             # Créer et configurer le style avec l'image de fond
+    #             central_widget.setStyleSheet(f"""
+    #                 #centralWidget {{
+    #                     background-image: url('{css_path}');
+    #                     background-position: center;
+    #                     background-repeat: no-repeat;
+    #                     background-size: cover;
+    #                     background-color: #1a1a1a;
+    #                 }}
+    #             """)
+                
+    #             # Créer un layout pour le widget central
+    #             self.main_layout = QVBoxLayout(central_widget)
+                
+    #             # Indiquer que le fond a été configuré
+    #             self.background_configured = True
+    #             print(f"Fond d'écran configuré: {css_path}")
+    #             return True
+    #         except Exception as e:
+    #             print(f"Erreur lors de l'application du fond d'écran: {e}")
+    #     else:
+    #         print(f"Fichier de fond d'écran non trouvé: {absolute_path}")
+        
+    #     # Si on arrive ici, c'est que le fond n'a pas été configuré
+    #     self.background_configured = False
+    #     return False
 
 # Point d'entrée de l'application
 if __name__ == "__main__":
