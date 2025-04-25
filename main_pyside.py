@@ -1052,7 +1052,7 @@ class BlueprintViewer(QMainWindow):
         # Ajouter une liste de blueprints du workshop (si dossier existe)
         workshop_list_layout.addWidget(QLabel("Blueprints Workshop"))
         workshop_path = os.path.join(os.path.expanduser("~"), "AppData", "Roaming", "SpaceEngineers", "Blueprints", "Workshop")
-        workshop_list = self.create_listbox(workshop_path)
+        workshop_list = self.create_listbox(workshop_path, workshop_mode=True)
         workshop_list_layout.addWidget(workshop_list)
         
         # Ajouter le layout de liste au layout principal
@@ -1112,40 +1112,57 @@ class BlueprintViewer(QMainWindow):
         
         self.main_layout.addWidget(trees_widget, 1)  # Stretch
     
-    def create_listbox(self, path):
+    def create_listbox(self, path, workshop_mode=False):
         """Crée une QListWidget pour afficher les blueprints d'un dossier"""
         listbox = QListWidget()
         
-        # Charger les blueprints si le dossier existe
-        if os.path.exists(path):
+        # Si en mode workshop, chercher les blueprints dans le dossier Steam Workshop
+        if workshop_mode:
+            # Trouver tous les chemins Steam Workshop disponibles sur différentes lettres de lecteur
+            steam_paths = self.find_steam_workshop_paths()
+            
             blueprint_files = []
-            for dirpath, dirnames, filenames in os.walk(path):
-                for filename in filenames:
-                    if filename.endswith(".sbc"):
-                        blueprint_files.append(os.path.join(dirpath, filename))
-            
-            # Trier alphabétiquement
-            blueprint_files.sort()
-            
-            # Ajouter à la liste
-            for file_path in blueprint_files:
-                blueprint_name = os.path.basename(os.path.dirname(file_path))
-                listbox.addItem(blueprint_name)
-                # Stocker le chemin complet dans les données de l'élément
-                item = listbox.item(listbox.count() - 1)
-                item.setData(Qt.UserRole, file_path)
-                
-                # Charger l'image d'aperçu si elle existe
-                thumb_dir = os.path.dirname(file_path)
-                thumb_path = os.path.join(thumb_dir, "thumb.png")
-                if os.path.exists(thumb_path):
-                    item.setIcon(QIcon(thumb_path))
+            for steam_path in steam_paths:
+                if os.path.exists(steam_path):
+                    for folder in os.listdir(steam_path):
+                        mod_dir = os.path.join(steam_path, folder)
+                        if os.path.isdir(mod_dir):
+                            # Vérifier s'il existe à la fois un bp.sbc et un thumb.png dans ce dossier
+                            bp_file = os.path.join(mod_dir, "bp.sbc")
+                            thumb_file = os.path.join(mod_dir, "thumb.png")
+                            if os.path.isfile(bp_file) and os.path.isfile(thumb_file):
+                                blueprint_files.append(bp_file)
+        else:
+            # Fonctionnement original pour les blueprints non-workshop
+            if os.path.exists(path):
+                blueprint_files = []
+                for dirpath, dirnames, filenames in os.walk(path):
+                    for filename in filenames:
+                        if filename.endswith(".sbc"):
+                            blueprint_files.append(os.path.join(dirpath, filename))
+    
+        # Trier alphabétiquement
+        blueprint_files.sort()
         
+        # Ajouter à la liste
+        for file_path in blueprint_files:
+            blueprint_name = os.path.basename(os.path.dirname(file_path))
+            listbox.addItem(blueprint_name)
+            # Stocker le chemin complet dans les données de l'élément
+            item = listbox.item(listbox.count() - 1)
+            item.setData(Qt.UserRole, file_path)
+            
+            # Charger l'image d'aperçu si elle existe
+            thumb_dir = os.path.dirname(file_path)
+            thumb_path = os.path.join(thumb_dir, "thumb.png")
+            if os.path.exists(thumb_path):
+                item.setIcon(QIcon(thumb_path))
+    
         # Connecter le signal de sélection
         listbox.itemClicked.connect(self.on_blueprint_selected)
         
         return listbox
-    
+
     def create_tree(self, title):
         """Crée un QTreeWidget pour afficher les composants, lingots ou blocs"""
         tree = QTreeWidget()
@@ -1439,57 +1456,41 @@ class BlueprintViewer(QMainWindow):
         refresh_data()
         self.refresh_ui()
 
-    # def set_background_image(self):
-    #     """Charge le fond d'écran depuis \Textures\fond.png s'il existe"""
-    #     background_path = r"\Textures\fond.png"
+    def find_steam_workshop_paths(self):
+        """Trouve les chemins possibles du dossier Steam Workshop sur différents lecteurs"""
+        steam_workshop_paths = []
         
-    #     # Si le chemin commence par un backslash, le considérer comme relatif au répertoire courant
-    #     if background_path.startswith("\\"):
-    #         # Obtenir le répertoire courant et ajouter le chemin relatif
-    #         current_dir = os.path.dirname(os.path.abspath(__file__))
-    #         absolute_path = os.path.join(current_dir, background_path.lstrip("\\"))
-    #     else:
-    #         absolute_path = background_path
+        # Chemins standards
+        standard_paths = [
+            r"C:\Program Files (x86)\Steam\steamapps\workshop\content\244850",
+            r"C:\SteamLibrary\steamapps\workshop\content\244850",
+            os.path.join(os.path.expanduser("~"), "AppData", "Roaming", "SpaceEngineers", "Blueprints", "Workshop")
+        ]
         
-    #     print(f"Chemin du fond d'écran: {absolute_path}")
+        # Vérifier les chemins standards
+        for path in standard_paths:
+            if os.path.exists(path):
+                steam_workshop_paths.append(path)
         
-    #     if os.path.exists(absolute_path):
-    #         try:
-    #             # Approche plus directe avec QMainWindow et styleSheet
-    #             # Cela applique le fond d'écran directement au widget central
-    #             central_widget = QWidget(self)
-    #             self.setCentralWidget(central_widget)
-    #             central_widget.setObjectName("centralWidget")
-                
-    #             # Convertir le chemin en format compatible avec CSS (utiliser des slashes avant)
-    #             css_path = absolute_path.replace("\\", "/")
-                
-    #             # Créer et configurer le style avec l'image de fond
-    #             central_widget.setStyleSheet(f"""
-    #                 #centralWidget {{
-    #                     background-image: url('{css_path}');
-    #                     background-position: center;
-    #                     background-repeat: no-repeat;
-    #                     background-size: cover;
-    #                     background-color: #1a1a1a;
-    #                 }}
-    #             """)
-                
-    #             # Créer un layout pour le widget central
-    #             self.main_layout = QVBoxLayout(central_widget)
-                
-    #             # Indiquer que le fond a été configuré
-    #             self.background_configured = True
-    #             print(f"Fond d'écran configuré: {css_path}")
-    #             return True
-    #         except Exception as e:
-    #             print(f"Erreur lors de l'application du fond d'écran: {e}")
-    #     else:
-    #         print(f"Fichier de fond d'écran non trouvé: {absolute_path}")
+        # Chercher sur d'autres lecteurs (A à Z)
+        for drive_letter in "ABDEFGHIJKLMNOPQRSTUVWXYZ":  # Exclure C car déjà vérifié
+            # Vérifier les deux formats de chemins possibles
+            paths_to_check = [
+                fr"{drive_letter}:\Steam\steamapps\workshop\content\244850",
+                fr"{drive_letter}:\SteamLibrary\steamapps\workshop\content\244850"
+            ]
+            
+            for path in paths_to_check:
+                if os.path.exists(path):
+                    steam_workshop_paths.append(path)
         
-    #     # Si on arrive ici, c'est que le fond n'a pas été configuré
-    #     self.background_configured = False
-    #     return False
+        # Si aucun chemin n'est trouvé, retourner au moins les chemins standards même s'ils n'existent pas
+        if not steam_workshop_paths:
+            steam_workshop_paths.extend(standard_paths)
+        
+        print(f"Dossiers workshop trouvés: {steam_workshop_paths}")
+        
+        return steam_workshop_paths
 
 # Point d'entrée de l'application
 if __name__ == "__main__":
