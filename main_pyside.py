@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
     QPushButton, QLabel, QFileDialog, QTabWidget, QListWidget, 
     QTreeWidget, QTreeWidgetItem, QFrame, QScrollArea, QSplitter,
-    QHeaderView, QStackedLayout
+    QHeaderView, QStackedLayout, QMenu
 )
 from PySide6.QtGui import QPixmap, QIcon, QImage, QPalette, QBrush, QPainter
 from PySide6.QtCore import Qt, QSize
@@ -103,14 +103,20 @@ ui_translations = {
         "language_button": "Language",
         "refresh_data_button": "Refresh data",
         "select_blueprint": "Select a blueprint",
-        "no_preview": "No preview available"
+        "no_preview": "No preview available",
+        "open_folder": "Open folder",
+        "export_to_desktop": "Export to desktop",
+        "export_folder_name": "exporter blueprint Space Engineers"
     },
     "fr": {
         "open_file_button": "Ouvrir un fichier blueprint...",
         "language_button": "Langue",
         "refresh_data_button": "Rafraîchir les données",
         "select_blueprint": "Sélectionnez un blueprint",
-        "no_preview": "Pas d'aperçu disponible"
+        "no_preview": "Pas d'aperçu disponible",
+        "open_folder": "Ouvrir le dossier",
+        "export_to_desktop": "Exporter sur le bureau",
+        "export_folder_name": "exporter blueprint Space engineers"
     }
 }
 
@@ -1158,11 +1164,89 @@ class BlueprintViewer(QMainWindow):
             if os.path.exists(thumb_path):
                 item.setIcon(QIcon(thumb_path))
     
-        # Connecter le signal de sélection
+        # Connecter le signal de sélection simple clic
         listbox.itemClicked.connect(self.on_blueprint_selected)
         
+        # Connecter le signal de double-clic pour ouvrir le dossier
+        listbox.itemDoubleClicked.connect(self.on_blueprint_double_clicked)
+        
+        # Connecter le signal de menu contextuel
+        listbox.setContextMenuPolicy(Qt.CustomContextMenu)
+        listbox.customContextMenuRequested.connect(
+            lambda pos, lb=listbox, wm=workshop_mode: self.show_blueprint_context_menu(pos, lb, wm)
+        )
+        
         return listbox
-
+        
+    def show_blueprint_context_menu(self, position, listbox, workshop_mode):
+        """Affiche un menu contextuel pour les blueprints"""
+        # Ne rien faire si aucun élément n'est sélectionné
+        if not listbox.selectedItems():
+            return
+            
+        # Récupérer l'élément sélectionné
+        item = listbox.selectedItems()[0]
+        file_path = item.data(Qt.UserRole)
+        folder_path = os.path.dirname(file_path)
+        
+        # Créer le menu contextuel
+        context_menu = QMenu()
+        
+        # Ajouter les actions au menu
+        open_folder_action = context_menu.addAction(ui_translations[selected_lang]["open_folder"])
+        export_action = context_menu.addAction(ui_translations[selected_lang]["export_to_desktop"])
+        
+        # Exécuter le menu et récupérer l'action sélectionnée
+        action = context_menu.exec_(listbox.mapToGlobal(position))
+        
+        # Traiter l'action sélectionnée
+        if action == open_folder_action:
+            self.open_blueprint_folder(folder_path)
+        elif action == export_action:
+            self.export_blueprint_to_desktop(folder_path)
+    
+    def open_blueprint_folder(self, folder_path):
+        """Ouvre le dossier contenant le blueprint"""
+        if os.path.exists(folder_path):
+            # Utiliser l'explorateur Windows pour ouvrir le dossier
+            os.startfile(folder_path)
+    
+    def export_blueprint_to_desktop(self, source_folder):
+        """Exporte le dossier du blueprint sur le bureau"""
+        if not os.path.exists(source_folder):
+            return
+            
+        # Obtenir le chemin du bureau
+        desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+        
+        # Créer le dossier d'exportation principal s'il n'existe pas
+        export_folder_name = ui_translations[selected_lang]["export_folder_name"]
+        export_main_folder = os.path.join(desktop_path, export_folder_name)
+        
+        if not os.path.exists(export_main_folder):
+            os.makedirs(export_main_folder)
+        
+        # Créer un nom de dossier cible basé sur le nom du blueprint
+        blueprint_name = os.path.basename(source_folder)
+        target_folder = os.path.join(export_main_folder, blueprint_name)
+        
+        try:
+            # Si le dossier existe déjà, ajouter un suffixe numérique
+            i = 1
+            original_target = target_folder
+            while os.path.exists(target_folder):
+                target_folder = f"{original_target}_{i}"
+                i += 1
+                
+            # Copier le dossier et son contenu
+            import shutil
+            shutil.copytree(source_folder, target_folder)
+            
+            # Ouvrir le dossier exporté
+            os.startfile(target_folder)
+        except Exception as e:
+            print(f"Erreur lors de l'exportation du blueprint: {e}")
+    
     def create_tree(self, title):
         """Crée un QTreeWidget pour afficher les composants, lingots ou blocs"""
         tree = QTreeWidget()
@@ -1231,6 +1315,13 @@ class BlueprintViewer(QMainWindow):
         
         # Afficher les résultats
         self.show_result(comps, blocks, ingots)
+    
+    def on_blueprint_double_clicked(self, item):
+        """Gère le double-clic sur un blueprint (ouvre le dossier)"""
+        file_path = item.data(Qt.UserRole)
+        if file_path:
+            folder_path = os.path.dirname(file_path)
+            self.open_blueprint_folder(folder_path)
     
     def browse_file(self):
         """Ouvre une boîte de dialogue pour charger un fichier blueprint"""
